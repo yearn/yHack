@@ -1,116 +1,114 @@
-import	React, {ReactElement}	from	'react';
-import	{Card, AlertBanner}		from	'@yearn/web-lib/components';
+import	React, {ReactElement}		from	'react';
+import	{motion}					from	'framer-motion';
+import	{useWeb3}					from	'@yearn/web-lib/contexts';
+import	{useLocalStorage}			from	'@yearn/web-lib/hooks';
+import	BoxLogin					from	'components/boxes/BoxLogin';
+import	BoxDeployToken				from	'components/boxes/BoxDeployToken';
+import	BoxDeployVault				from	'components/boxes/BoxDeployVault';
+import	BoxAddToMetamask			from	'components/boxes/BoxAddToMetamask';
+import	BoxDocumentation			from	'components/boxes/BoxDocumentation';
+import	BoxDepositLimit				from	'components/boxes/BoxDepositLimit';
 
-function	ColorBox({color, name}: {color: string, name: string}): ReactElement {
-	return (
-		<div className={'flex flex-row space-x-2'}>
-			<div className={`overflow-hidden relative aspect-square w-10 border border-background ${color}`} />
-			<b className={'my-2 text-xs'}>{name}</b>
-		</div>
-	);
-}
+// function	Arrow(props: React.SVGProps<SVGSVGElement>): ReactElement {
+// 	return (
+// 		<svg {...props} width={'64'} height={'64'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 512 512'}><path d={'M512 256c0-141.4-114.6-256-256-256S0 114.6 0 256c0 141.4 114.6 256 256 256S512 397.4 512 256zM265.9 382.8C259.9 380.3 256 374.5 256 368v-64H160c-17.67 0-32-14.33-32-32v-32c0-17.67 14.33-32 32-32h96v-64c0-6.469 3.891-12.31 9.875-14.78c5.984-2.484 12.86-1.109 17.44 3.469l112 112c6.248 6.248 6.248 16.38 0 22.62l-112 112C278.7 383.9 271.9 385.3 265.9 382.8z'} fill={'currentColor'} /></svg>
+// 	);
+// }
 
-function	ColorPaletteLight(): ReactElement {
-	return (
-		<div className={'mb-10 space-y-8 w-full'}>
-			<div className={'grid grid-cols-3 w-full'}>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Background & Surface'}</h4>
-					<ColorBox color={'bg-background'} name={'--color-background'} />
-					<ColorBox color={'bg-background-variant'} name={'--color-background-variant'} />
-					<ColorBox color={'bg-surface'} name={'--color-surface'} />
-					<ColorBox color={'bg-surface-variant'} name={'--color-surface-variant'} />
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Main colors'}</h4>
-					<ColorBox color={'bg-primary'} name={'--color-primary'} />
-					<ColorBox color={'bg-primary-variant'} name={'--color-primary-variant'} />
-					<ColorBox color={'bg-secondary'} name={'--color-secondary'} />
-					<ColorBox color={'bg-secondary-variant'} name={'--color-secondary-variant'} />
-				</div>
-			</div>
-
-			<div className={'grid grid-cols-3 w-full'}>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Typo'}</h4>
-					<ColorBox color={'bg-typo-primary'} name={'--color-typo-primary'} />
-					<ColorBox color={'bg-typo-primary-variant'} name={'--color-typo-primary-variant'} />
-					<ColorBox color={'bg-typo-secondary'} name={'--color-typo-secondary'} />
-					<ColorBox color={'bg-typo-secondary-variant'} name={'--color-typo-secondary-variant'} />
-					<ColorBox color={'bg-typo-off'} name={'--color-typo-off'} />
-
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Icons'}</h4>
-					<ColorBox color={'bg-icons-primary'} name={'--color-icons-primary'} />
-					<ColorBox color={'bg-icons-variant'} name={'--color-icons-variant'} />
-				</div>
-			</div>
-
-			<div className={'grid grid-cols-3 w-full'}>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Button filled'}</h4>
-					<ColorBox color={'bg-button-filled-primary'} name={'--color-button-filled-primary'} />
-					<ColorBox color={'bg-button-filled-variant'} name={'--color-button-filled-variant'} />
-					<ColorBox color={'bg-button-filled-text'} name={'--color-button-filled-text'} />
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Button outlined'}</h4>
-					<ColorBox color={'bg-button-outlined-primary'} name={'--color-button-outlined-primary'} />
-					<ColorBox color={'bg-button-outlined-variant'} name={'--color-button-outlined-variant'} />
-					<ColorBox color={'bg-button-outlined-text'} name={'--color-button-outlined-text'} />
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Button Disabled'}</h4>
-					<ColorBox color={'bg-button-disabled-primary'} name={'--color-button-disabled-primary'} />
-					<ColorBox color={'bg-button-disabled-variant'} name={'--color-button-disabled-variant'} />
-					<ColorBox color={'bg-button-disabled-text'} name={'--color-button-disabled-text'} />
-				</div>
-			</div>
-
-			<div className={'grid grid-cols-3 w-full'}>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Warnings'}</h4>
-					<ColorBox color={'bg-alert-warning-primary'} name={'--color-alert-warning-primary'} />
-					<ColorBox color={'bg-alert-warning-secondary'} name={'--color-alert-warning-secondary'} />
-					<ColorBox color={'bg-alert-warning-secondary-variant'} name={'--color-alert-warning-secondary-variant'} />
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Errors'}</h4>
-					<ColorBox color={'bg-alert-error-primary'} name={'--color-alert-error-primary'} />
-					<ColorBox color={'bg-alert-error-secondary'} name={'--color-alert-error-secondary'} />
-					<ColorBox color={'bg-alert-error-secondary-variant'} name={'--color-alert-error-secondary-variant'} />
-				</div>
-				<div className={'flex flex-col gap-2 w-full'}>
-					<h4 className={'mb-2'}>{'Critical'}</h4>
-					<ColorBox color={'bg-alert-critical-primary'} name={'--color-alert-critical-primary'} />
-					<ColorBox color={'bg-alert-critical-secondary'} name={'--color-alert-critical-secondary'} />
-					<ColorBox color={'bg-alert-critical-secondary-variant'} name={'--color-alert-critical-secondary-variant'} />
-				</div>
-			</div>
-
-		</div>
-	);
-}
+const boxVariant = {
+	visible: {opacity: 1, y: 0},
+	hidden: {opacity: 0, y: 100}
+};
 
 function	Index(): ReactElement {
+	const	{isActive, chainID} = useWeb3();
+	const	[tokenAddress, set_tokenAddress] = useLocalStorage('tokenAddress', '') as [string, (s: string) => string];
+	const	[vaultAddress, set_vaultAddress] = useLocalStorage('vaultAddress', '') as [string, (s: string) => string];
+
 	return (
 		<section aria-label={'some default section'}>
-			<div className={'mb-4'}>
-				<AlertBanner
-					id={'color-system'}
-					title={'Color system'}
-					level={'info'}
-					maxHeight={'max-h-[600px] md:max-h-[300px]'}>
-					<div>
-						<p className={'text-primary'}>{'With this color system, we are trying to mimic some material standard conventions, with the use of `primary`, `secondary`, `variant`, `background`, `surface`, etc. Naming if far from perfect yet, but it\'s a Work In Progress'}</p>
-						<p className={'block mt-4 text-primary'}>{'The colors are set using css variables and can be overrited in your style.css file.'}</p>
-					</div>
-				</AlertBanner>
+			<div className={'grid grid-cols-12 gap-10'}>
+				{!isActive || chainID !== 4 ? (
+					<motion.div
+						key={'box-login'}
+						initial={'hidden'}
+						animate={'visible'}
+						exit={'hidden'}
+						className={'col-span-12'}
+						variants={boxVariant}
+						transition={{duration: 1.2, ease: 'easeInOut', delay: 0}}>
+						<BoxLogin />
+					</motion.div>
+				) : (
+					<>
+						<motion.div
+							key={'box-token'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							className={'flex col-span-6'}
+							variants={boxVariant}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0}}>
+							<BoxDeployToken tokenAddress={tokenAddress} set_tokenAddress={set_tokenAddress} />
+						</motion.div>
+
+						{tokenAddress ? <motion.div
+							key={'box-vault'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							className={'flex col-span-6'}
+							variants={boxVariant}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0}}>
+							<BoxDeployVault tokenAddress={tokenAddress} vaultAddress={vaultAddress} set_vaultAddress={set_vaultAddress} />
+						</motion.div> : null}
+
+						{vaultAddress ? <motion.div
+							key={'box-vault'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							className={'grid col-span-4 w-full'}
+							variants={boxVariant}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0}}>
+							<BoxDepositLimit vaultAddress={vaultAddress} />
+						</motion.div> : null}
+
+						{tokenAddress && vaultAddress ? <motion.div
+							key={'box-metamask'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							variants={boxVariant}
+							className={'grid col-span-4 w-full'}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0.2}}>
+							<BoxAddToMetamask tokenAddress={tokenAddress} />
+						</motion.div> : null}
+
+						{tokenAddress && vaultAddress ? <motion.div
+							key={'box-doc'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							variants={boxVariant}
+							className={'grid col-span-4 w-full'}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0.4}}>
+							<BoxDocumentation />
+						</motion.div> : null}
+
+						{/* {tokenAddress && vaultAddress ? <motion.div
+							key={'box-metamask-3'}
+							initial={'hidden'}
+							animate={'visible'}
+							exit={'hidden'}
+							variants={boxVariant}
+							className={'flex col-span-4 justify-center items-center w-full h-full'}
+							transition={{duration: 1.2, ease: 'easeInOut', delay: 0.2}}>
+							<Arrow className={'w-36 h-36 opacity-20 hover:opacity-100 transition-opacity duration-500 cursor-pointer'} />
+						</motion.div> : null} */}
+					</>
+				)}
 			</div>
-			<Card>
-				<ColorPaletteLight />
-			</Card>
 		</section>
 	);
 }

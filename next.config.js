@@ -15,10 +15,10 @@ module.exports = ({
 		** Stuff used for the SEO or some related elements, like the title, the
 		** github url etc.
 		**********************************************************************/
-		WEBSITE_URI: 'https://web.ycorpo.com/',
-		WEBSITE_NAME: 'yWeb',
-		WEBSITE_TITLE: 'yWeb',
-		WEBSITE_DESCRIPTION: 'Template used for Yearn\'s projects',
+		WEBSITE_URI: 'https://hack.yearn.farm/',
+		WEBSITE_NAME: 'yHack',
+		WEBSITE_TITLE: 'yHack',
+		WEBSITE_DESCRIPTION: 'Hack with Yearn',
 		PROJECT_GITHUB_URL: 'https://github.com/yearn/yearn-template',
 
 		/* 🔵 - Yearn Finance **************************************************
@@ -36,26 +36,18 @@ module.exports = ({
 		USE_WALLET: true,
 		USE_PRICES: true,
 		USE_PRICE_TRI_CRYPTO: false,
-		USE_FEEDBACKS: true,
-		CG_IDS: ['yearn-finance'],
+		USE_FEEDBACKS: false,
+		CG_IDS: ['keep3rv1'],
 		TOKENS: [
-			['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]
+			['0x1ceb5cb57c4d4e2b2433641b95dd330a33185a44', 18, 1]
 		],
 		RPC_URL: {
 			1: process.env.RPC_URL_MAINNET,
+			4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
 			250: process.env.RPC_URL_FANTOM || 'https://rpc.ftm.tools',
 			42161: process.env.RPC_URL_ARBITRUM || 'https://arbitrum.public-rpc.com'
 		},
 		ALCHEMY_KEY: process.env.ALCHEMY_KEY,
-
-		FEEBACKS_TYPE: 'github',
-		LINEAR_OAUTH_TOKEN: process.env.LINEAR_OAUTH_TOKEN,
-		LINEAR_TEAM_ID: process.env.LINEAR_TEAM_ID,
-		LINEAR_PROJECT_NAME: process.env.LINEAR_PROJECT_NAME,
-
-		GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN,
-		GITHUB_PROJECT_OWNER: process.env.GITHUB_PROJECT_OWNER,
-		GITHUB_PROJECT_REPO: process.env.GITHUB_PROJECT_REPO
-
+		INFURA_KEY: process.env.INFURA_KEY
 	}
 });

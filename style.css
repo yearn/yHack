@@ -1,5 +1,6 @@
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
 @import '@yearn/web-lib/dist/style.css';
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;800&display=swap');
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Shorthand for some group of style used across the application
@@ -9,31 +10,27 @@
 .flex-col-start {@apply flex flex-col items-start;}
 .flex-col-full {@apply flex flex-col w-full h-full;}
 
-/* 🔵 - Yearn Finance ******************************************************
-** Overwrite for the feedbackfin component
-**************************************************************************/
-:root {
-	--feedbackfin-primary-color: #FFFFFF;
-	--feedbackfin-bg-color: rgb(6, 87, 249);
-}
-[data-theme*=dark] {
-	--feedbackfin-primary-color: #FFFFFF;
-	--feedbackfin-bg-color: #000000;
-}
-#feedbackfin__container {@apply rounded-lg shadow-xl -mt-2;}
-#feedbackfin__title {@apply text-white text-2xl font-bold;}
-#feedbackfin__branding {@apply opacity-0 h-0;}
-#feedbackfin__submit {@apply button button-light}
-#feedbackfin__container :focus,
-#feedbackfin__container :focus-visible,
-#feedbackfin__message:focus,
-.feedbackfin__radio:focus+.feedbackfin__radio-label {
-	@apply outline-none shadow-none ring-0;
-}
-#feedbackfin__message:focus {@apply border-white/50}
-#feedbackfin__submit {@apply border border-white/50}
-#feedbackfin__submit:active,
-#feedbackfin__submit:focus-visible,
-#feedbackfin__submit:hover {
-	@apply bg-secondary-variant;
+
+.feature {
+	--x-px: calc(var(--x) * 1px);
+	--y-px: calc(var(--y) * 1px);
+	--opacity: var(--opacity);
+	@apply w-full h-full;
+
+	&:before,
+	&:after {
+		@apply pointer-events-none block absolute inset-0 top-0 left-0 w-full h-full z-[-1];
+		content: "";
+		z-index: -1;
+		opacity: var(--opacity);
+		background: radial-gradient(
+			800px circle at var(--x-px) var(--y-px),
+			var(--color),
+			transparent 40%
+		);
+		transition: opacity 0.4s ease;
+	}
+	&:before {
+		@apply pointer-events-none z-[-1];
+	}
 }

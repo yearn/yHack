@@ -1,18 +1,12 @@
-import	React, {ReactElement}				from	'react';
-import	Head								from	'next/head';
-import	Link								from	'next/link';
-import	{AppProps}							from	'next/app';
-import	{DefaultSeo}						from	'next-seo';
-import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
-import	{WithYearn, usePrices, useBalances}	from	'@yearn/web-lib/contexts';
-import	{format}							from	'@yearn/web-lib/utils';
-import	{Home, AlertError}					from	'@yearn/web-lib/icons';
-import	Footer								from	'components/StandardFooter';
-import	IconYearn							from	'components/icons/IconYearn';
+import	React, {ReactElement}	from	'react';
+import	Head					from	'next/head';
+import	{AppProps}				from	'next/app';
+import	{DefaultSeo}			from	'next-seo';
+import	{WithYearn, useWeb3}	from	'@yearn/web-lib/contexts';
+import	{useWindowInFocus}		from	'@yearn/web-lib/hooks';
 
 import	'../style.css';
 
-const		YFI_ADDRESS = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e';
 function	AppHead(): ReactElement {
 	return (
 		<>
@@ -35,10 +29,6 @@ function	AppHead(): ReactElement {
 				<meta name={'robots'} content={'index,nofollow'} />
 				<meta name={'googlebot'} content={'index,nofollow'} />
 				<meta charSet={'utf-8'} />
-
-				<script src={'/feedback.source.js'} defer />
-				<script src={'/feedback.js'} defer />
-				<script src={'/prism.js'} />
 			</Head>
 			<DefaultSeo
 				title={process.env.WEBSITE_NAME}
@@ -53,7 +43,7 @@ function	AppHead(): ReactElement {
 					description: process.env.WEBSITE_DESCRIPTION,
 					images: [
 						{
-							url: `${process.env.WEBSITE_URI}og.png`,
+							url: `${process.env.WEBSITE_URI}og.jpg`,
 							width: 1200,
 							height: 675,
 							alt: 'Yearn'
@@ -69,94 +59,25 @@ function	AppHead(): ReactElement {
 	);
 }
 
-function	AppHeader(): ReactElement {
-	const	[shouldDisplayPrice, set_shouldDisplayPrice] = React.useState(true);
-	const	[tokenPrice, set_tokenPrice] = React.useState('0');
-	const	{prices} = usePrices();
-	const	{balancesOf} = useBalances();
-
-	React.useEffect((): void => {
-		set_tokenPrice(format.amount(Number(prices?.['yearn-finance']?.usd || 0), 2));
-	}, [prices]);
-
-	return (
-		<Header>
-			<div className={'justify-between pr-4 w-full flex-row-center'}>
-				<h1>{process.env.WEBSITE_TITLE}</h1>
-				<div className={'hidden flex-row items-center space-x-6 md:flex'}>
-					<div
-						className={'cursor-pointer'}
-						onClick={(): void => set_shouldDisplayPrice(!shouldDisplayPrice)}>
-						{shouldDisplayPrice ? (
-							<p className={'text-typo-primary-variant'}>
-								{`YFI $ ${tokenPrice}`}
-							</p>
-						) : (
-							<p className={'text-typo-primary-variant'}>
-								{`Balance: ${format.amount(Number(balancesOf?.[YFI_ADDRESS] || 0), 6)} YFI`}
-							</p>
-						)}
-					</div>
-				</div>
-			</div>
-		</Header>
-	);
-}
-
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
+	const	{chainID, onSwitchChain} = useWeb3();
+	const	hasWindowInFocus = useWindowInFocus();
 
-	const	navbarMenuOptions = [
-		{
-			route: '/',
-			values: ['/'],
-			label: 'Home',
-			icon: <Home  />
-		},
-		{
-			route: '/disclaimer',
-			values: ['/disclaimer'],
-			label: 'Disclaimer',
-			icon: <AlertError />
-		}
-	];
-
-	function	onChangeRoute(selected: string): void {
-		router.push(selected);
-	}
+	React.useEffect((): void => {
+		if (chainID !== 4 && hasWindowInFocus)
+			onSwitchChain(4, true);
+	}, [chainID, onSwitchChain, hasWindowInFocus]);
 
 	return (
 		<>
 			<AppHead />
 			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-6xl md:flex-row'}>
-				<div className={'sticky top-0 z-50 col-span-12 h-auto md:relative md:col-span-2'}>
-					<div className={'flex flex-col justify-between h-full'}>
-						<Navbar
-							selected={router.pathname}
-							set_selected={onChangeRoute}
-							logo={<IconYearn className={'w-full h-12 text-primary'} />}
-							title={'yWeb'}
-							options={navbarMenuOptions}
-							wrapper={<Link passHref href={''} />}>
-							<div className={'flex flex-col mt-auto space-y-2'}>
-								{
-									process.env.USE_FEEDBACKS ? (
-										<button data-feedbackfin-button className={'button-light'}>
-											{'Feedback'}
-										</button>
-									) : null
-								}
-							</div>
-						</Navbar>
-					</div>
-				</div>
-				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh] md:col-span-10'}>
-					<AppHeader />
+				<div className={'flex flex-col col-span-12 px-4 pt-16 w-full min-h-[100vh] md:col-span-12'}>
 					<Component
 						key={router.route}
 						router={props.router}
 						{...pageProps} />
-					<Footer />
 				</div>
 			</div>
 		</>
