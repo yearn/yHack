@@ -46,7 +46,7 @@ function	BoxDeployToken({tokenAddress, set_tokenAddress}: {tokenAddress: string,
 		<Card id={'token'} padding={'none'} className={'overflow-hidden'} style={{'--color': '#FFFFFF20'}}> 
 			<div className={'flex relative z-10 flex-col w-full h-full feature'}>
 				<div className={'relative z-20 p-4 space-y-2'}>
-					<b className={'font-mono text-lg'}>{'# 1 - DEPLOY yTOKEN'}</b>
+					<b className={'font-mono text-lg'}>{'# 1 - DEPLOY TOKEN'}</b>
 					<p className={'font-mono'}>
 						{'Good for you. You can connect a wallet. '}
 					</p>
