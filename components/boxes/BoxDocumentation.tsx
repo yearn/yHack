@@ -49,10 +49,12 @@ function	BoxDocumentation(): ReactElement {
 				<div className={'flex relative z-20 flex-col justify-center p-4 mt-auto mb-2'}>
 					<p className={'mb-2 font-mono text-left opacity-0'}>{'nothing'}</p>
 					<div className={'flex justify-center items-center'}>
-						<button
-							className={'group relative items-center py-2 px-4 h-full font-mono font-bold text-center hover:text-[#004124] uppercase hover:bg-white rounded-lg border-2 border-white transition-colors duration-700'}>
-							{'Check documentation'}
-						</button>
+						<a href={'https://docs.yearn.finance/developers/v2/hacking-with-yearn'} target={'_blank'} rel={'noreferrer'}>
+							<button
+								className={'group relative items-center py-2 px-4 h-full font-mono font-bold text-center hover:text-[#004124] uppercase hover:bg-white rounded-lg border-2 border-white transition-colors duration-700'}>
+								{'Check documentation'}
+							</button>
+						</a>
 					</div>
 				</div>
 
