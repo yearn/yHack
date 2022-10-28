@@ -1,6 +1,6 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@yearn/web-lib/components';
-import	{useClientEffect}			from	'@yearn/web-lib/hooks';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{useClientEffect}			from	'@yearn-finance/web-lib/hooks';
 import	{RadialBackground}			from	'components/RadialBackground';
 import	IconShape					from	'components/icons/IconShape';
 
@@ -36,7 +36,7 @@ function	BoxDocumentation(): ReactElement {
 
 	return (
 		<Card id={'documentation'} padding={'none'} className={'overflow-hidden'} style={{'--color': '#FFFFFF20'}}> 
-			<div className={'flex relative z-10 flex-col w-full h-full min-h-[256px] feature'}>
+			<div className={'feature flex relative z-10 flex-col w-full h-full min-h-[256px]'}>
 				<div className={'relative z-20 p-4 space-y-2'}>
 					<b className={'font-mono text-lg'}>{'# 5 - READ THE DOC'}</b>
 					<p className={'font-mono'}>

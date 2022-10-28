@@ -1,7 +1,7 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@yearn/web-lib/components';
-import	{useWeb3}					from	'@yearn/web-lib/contexts';
-import	{useClientEffect}			from	'@yearn/web-lib/hooks';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
+import	{useClientEffect}			from	'@yearn-finance/web-lib/hooks';
 import	{RadialBackground}			from	'components/RadialBackground';
 import	IconEye						from	'components/icons/IconEye';
 
@@ -39,7 +39,7 @@ function	BoxAddToMetamask({tokenAddress}: {tokenAddress: string}): ReactElement 
 
 	return (
 		<Card id={'metamask'} padding={'none'} className={'overflow-hidden'} style={{'--color': '#FFFFFF20'}}> 
-			<div className={'flex relative z-10 flex-col w-full h-full min-h-[256px] feature'}>
+			<div className={'feature flex relative z-10 flex-col w-full h-full min-h-[256px]'}>
 				<div className={'relative z-20 p-4 space-y-2'}>
 					<b className={'font-mono text-lg'}>{'# 4 - ADD TO METAMASK'}</b>
 					<p className={'font-mono'}>

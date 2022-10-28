@@ -1,9 +1,9 @@
 import	React, {ReactElement}		from	'react';
 import	{ethers}					from	'ethers';
-import	{Card}						from	'@yearn/web-lib/components';
-import	{useWeb3}					from	'@yearn/web-lib/contexts';
-import	{useClientEffect}			from	'@yearn/web-lib/hooks';
-import	* as utils					from	'@yearn/web-lib/utils';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
+import	{useClientEffect}			from	'@yearn-finance/web-lib/hooks';
+import	* as utils					from	'@yearn-finance/web-lib/utils';
 import	{RadialBackground}			from	'components/RadialBackground';
 import	IconGift					from	'components/icons/IconGift';
 import	IconLoader					from	'components/icons/IconLoader';
@@ -48,7 +48,7 @@ function	BoxDeployVault({tokenAddress, vaultAddress, set_vaultAddress}: {
 
 	return (
 		<Card id={'vault'} padding={'none'} className={'overflow-hidden'} style={{'--color': '#FFFFFF20'}}> 
-			<div className={'flex relative z-10 flex-col w-full h-full feature'}>
+			<div className={'feature flex relative z-10 flex-col w-full h-full'}>
 				<div className={'relative z-20 p-4 space-y-2'}>
 					<b className={'font-mono text-lg'}>{'# 2 - YOUR MIGHTY VAULT'}</b>
 					<p className={'font-mono'}>

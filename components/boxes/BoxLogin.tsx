@@ -1,7 +1,7 @@
 import	React, {ReactElement}		from	'react';
-import	{useWeb3}					from	'@yearn/web-lib/contexts';
-import	{Card}						from	'@yearn/web-lib/components';
-import	{useClientEffect}			from	'@yearn/web-lib/hooks';
+import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{useClientEffect}			from	'@yearn-finance/web-lib/hooks';
 import	{RadialBackground}			from	'components/RadialBackground';
 import	IconGift					from	'components/icons/IconGift';
 
@@ -39,7 +39,7 @@ function	BoxLogin(): ReactElement {
 
 	return (
 		<Card id={'connect'} padding={'none'} className={'overflow-hidden'} style={{'--color': '#FFFFFF20'}}> 
-			<div className={'flex relative z-10 flex-col w-full h-full min-h-[256px] feature'}>
+			<div className={'feature flex relative z-10 flex-col w-full h-full min-h-[256px]'}>
 				<div className={'relative z-20 p-4 space-y-2'}>
 					<b className={'font-mono text-lg'}>
 						{'# 0 - CONNECT YOUR WALLET'}

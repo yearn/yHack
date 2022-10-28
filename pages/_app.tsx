@@ -2,8 +2,8 @@ import	React, {ReactElement}	from	'react';
 import	Head					from	'next/head';
 import	{AppProps}				from	'next/app';
 import	{DefaultSeo}			from	'next-seo';
-import	{WithYearn, useWeb3}	from	'@yearn/web-lib/contexts';
-import	{useWindowInFocus}		from	'@yearn/web-lib/hooks';
+import	{WithYearn, useWeb3}	from	'@yearn-finance/web-lib/contexts';
+import	{useWindowInFocus}		from	'@yearn-finance/web-lib/hooks';
 
 import	'../style.css';
 
@@ -64,8 +64,8 @@ function	AppWrapper(props: AppProps): ReactElement {
 	const	hasWindowInFocus = useWindowInFocus();
 
 	React.useEffect((): void => {
-		if (chainID !== 4 && hasWindowInFocus)
-			onSwitchChain(4, true);
+		if (chainID !== 5 && hasWindowInFocus)
+			onSwitchChain(5, true);
 	}, [chainID, onSwitchChain, hasWindowInFocus]);
 
 	return (
@@ -87,7 +87,18 @@ function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
 	
 	return (
-		<WithYearn>
+		<WithYearn
+			options={{
+				ui: {
+					shouldUseTheme: false
+				},
+				web3:{
+					shouldUseWallets: true,
+					shouldUseStrictChainMode: false,
+					supportedChainID: [5, 1337],
+					defaultChainID: 5
+				}
+			}}>
 			<AppWrapper
 				Component={Component}
 				pageProps={pageProps}
